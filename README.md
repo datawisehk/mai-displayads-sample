@@ -1,3 +1,6 @@
+# AIAD Display Ads Sample
+## A.K.A mai-displayads-sample
+
 Need change 
 android/app/src/main/java/com/hkai/displayads/demo/MyActivity.java
 ios/DisplayAdsManagerExample/ViewController.m
