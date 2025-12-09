@@ -1,0 +1,32 @@
+name: Sync MAI Branches to Datawise HK Repo
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  push-to-mai-repo:
+    runs-on: ubuntu-latest
+    if: github.repository != 'datawisehk/mai-displayads-sample'
+    steps:
+      - name: Checkout Source Repo
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Setup SSH for git command
+        uses: webfactory/ssh-agent@v0.9.1
+        with:
+          ssh-private-key: ${{ secrets.DWHK_ENG_SSH_KEY }}
+
+      - name: Push to Datawise HK Repo
+        run: |
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          
+          # set destination to mai-k8s-configs repo and force push
+          git remote add destination "git@github.com:datawisehk/mai-displayads-sample.git"
+          git push destination HEAD:${{ github.ref_name }} --force
