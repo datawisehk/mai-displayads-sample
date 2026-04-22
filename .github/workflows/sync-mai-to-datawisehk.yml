@@ -5,11 +5,13 @@ on:
     branches:
       - main
   workflow_dispatch:
-
+permissions: {}
 jobs:
   push-to-mai-repo:
     runs-on: ubuntu-latest
     if: github.repository != 'datawisehk/mai-displayads-sample'
+    permissions:
+      contents: read
     steps:
       - name: Checkout Source Repo
         uses: actions/checkout@v6
@@ -23,10 +25,14 @@ jobs:
           ssh-private-key: ${{ secrets.DWHK_ENG_SSH_KEY }}
 
       - name: Push to Datawise HK Repo
+        env:
+          BRANCH_NAME: ${{ github.ref_name }}
         run: |
+          set -f # Disable glob expansion
+          
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
 
           # set destination to mai-displayads-sample repo and force push
           git remote add destination "git@github.com:datawisehk/mai-displayads-sample.git"
-          git push destination HEAD:${{ github.ref_name }} --force
+          git push destination "HEAD:${BRANCH_NAME}" --force
