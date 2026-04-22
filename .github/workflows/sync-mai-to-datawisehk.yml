@@ -20,7 +20,7 @@ jobs:
           fetch-depth: 0
 
       - name: Setup SSH for git command
-        uses: webfactory/ssh-agent@v0.10.0
+        uses: webfactory/ssh-agent@v0.9.1
         with:
           ssh-private-key: ${{ secrets.DWHK_ENG_SSH_KEY }}
 
