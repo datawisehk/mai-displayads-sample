@@ -1,6 +1,6 @@
 <div align="center">
 
-# <img src="docs/images/logo.png" width="30"> AIAD Display Ads Sample
+# <img src="docs/images/logo.png" width="30"> AlgoAD Display Ads Sample
 ## A.K.A mai-displayads-sample
 </div>
 Need change 
